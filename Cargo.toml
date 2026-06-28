@@ -1,0 +1,46 @@
+[workspace]
+# Use the latest resolver available
+resolver = "3"
+# Include both parts of the library in the workspace
+members = [
+    #"vetis-asgi",
+    #"vetis-fcgi",
+    "vetis-proxy",
+    #"vetis-rack",
+    #"vetis-rsgi",
+    #"vetis-sapi",
+    #"vetis-scgi",
+    "vetis-static",
+    #"vetis-wsgi",
+]
+
+[workspace.package]
+authors = ["Rogerio Araújo <rogerio.araujo@gmail.com>"]
+edition = "2021"
+repository = "https://github.com/vetis-server/vetis-extras"
+homepage = "https://github.com/vetis-server/vetis-extras"
+license = "MIT OR Apache-2.0"
+rust-version = "1.75.0"
+
+[workspace.dependencies]
+#vetis-asgi = { path = "vetis-asgi" }
+#vetis-fcgi = { path = "vetis-fcgi" }
+vetis-proxy = { path = "vetis-proxy" }
+#vetis-rack = { path = "vetis-rack" }
+#vetis-rsgi = { path = "vetis-rsgi" }
+#vetis-sapi = { path = "vetis-sapi" }
+#vetis-scgi = { path = "vetis-scgi" }
+vetis-static = { path = "vetis-static" }
+#vetis-wsgi = { path = "vetis-wsgi" }
+
+[profile.release]
+strip = true
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
