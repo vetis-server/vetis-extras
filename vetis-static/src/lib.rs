@@ -30,6 +30,9 @@ const DEFAULT_TTL: Duration = Duration::from_secs(60);
 const DEFAULT_TTI: Duration = Duration::from_secs(10);
 const DEFAULT_CAPACITY: u64 = 1000;
 
+#[cfg(test)]
+mod tests;
+
 /// Format a SystemTime to a string in RFC 2822 format.
 ///
 /// # Arguments
@@ -363,7 +366,7 @@ where
     D: Deserializer<'de>,
 {
     let s = String::deserialize(deserializer)?;
-    parse_duration::parse(&s).map_err(serde::de::Error::custom)
+    duration_str::parse(&s).map_err(serde::de::Error::custom)
 }
 
 /// Builder for creating `StaticFileMetadata` instances.

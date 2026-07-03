@@ -13,11 +13,11 @@ publish = true
 rust-version.workspace = true
 
 [dependencies]
+duration-str = "0.21.0"
 http = "1.4.2"
 hyper-body-utils = "0.1.7"
 log = "0.4.33"
 minimime = "1.0.0"
-parse_duration = "2.1.1"
 regex = "1.12.4"
 serde = { version = "1.0.228", features = ["derive"] }
 time = "0.3.41"
