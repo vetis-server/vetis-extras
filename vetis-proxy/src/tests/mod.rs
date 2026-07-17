@@ -1,11 +1,4 @@
-use crate::tests::vetis_default_protocol;
-use std::error::Error;
-use vetis::errors::{ConfigError, VetisError};
-use vetis::virtual_host::path::proxy::ProxyPathConfig;
-use vetis::{
-    listener::ListenerConfig, security::SecurityConfig, server::ServerConfig,
-    virtual_host::VirtualHostConfig,
-};
+use crate::ProxyPathConfig;
 
 #[test]
 fn test_reverse_proxy_config() -> Result<(), Box<dyn std::error::Error>> {

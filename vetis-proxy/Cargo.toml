@@ -13,12 +13,20 @@ publish = true
 rust-version.workspace = true
 
 [features]
-default = []
+default = ["runtime-tokio"]
+runtime-tokio = [
+  "deboa-tokio/http1",
+  "deboa-tokio/rust-tls",
+  "deboa-tokio/default-rustls-provider",
+  "deboa-tokio/default-rustls-verifier",
+  "vetis-tokio/http1",
+  "vetis-tokio/rust-tls",
+]
 
 [dependencies]
 deboa = { version = "0.1.0-beta.24" }
-deboa-tokio = { version = "0.1.0-beta.13" }
+deboa-tokio = { version = "0.1.0-beta.15", optional = true, default-features = false }
 once_cell = "1.21.4"
 serde = { version = "1.0.228", features = ["derive"] }
 vetis = { version = "0.1.4-beta.9" }
-vetis-tokio = { version = "0.1.0-beta.4" }
+vetis-tokio = { version = "0.1.0-beta.4", optional = true, default-features = false }
