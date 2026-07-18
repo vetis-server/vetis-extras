@@ -10,6 +10,7 @@ use time::{format_description::well_known::Rfc2822, OffsetDateTime};
 use vetis::{
     errors::{ConfigError, VetisError},
     virtual_host::path::PathConfig,
+    VetisResult,
 };
 
 //pub(crate) type VetisFileCache = Cache<String, StaticFile>;
@@ -220,8 +221,8 @@ impl StaticPathConfigBuilder {
     ///
     /// # Returns
     ///
-    /// * `Result<StaticPathConfig, VetisError>` - The `StaticPathConfig` with the configured settings.
-    pub fn build(self) -> Result<StaticPathConfig, VetisError> {
+    /// * `VetisResult<StaticPathConfig>` - The `StaticPathConfig` with the configured settings.
+    pub fn build(self) -> VetisResult<StaticPathConfig> {
         if self.uri.is_empty() {
             return Err(VetisError::Config(ConfigError::Path("URI cannot be empty".to_string())));
         }

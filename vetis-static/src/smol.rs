@@ -9,7 +9,7 @@ use std::{future::Future, path::PathBuf, pin::Pin, sync::Arc};
 use vetis::{
     errors::{FileError, VetisError, VirtualHostError},
     virtual_host::path::Path,
-    Request, Response,
+    Request, Response, VetisResult,
 };
 
 /// Static path
@@ -63,7 +63,7 @@ impl StaticPath {
         StaticPath { config, index_file: None /*file_cache*/ }
     }
 
-    async fn cache_file(&self, file_path: &std::path::Path) -> Result<StaticFile, VetisError> {
+    async fn cache_file(&self, file_path: &std::path::Path) -> VetisResult<StaticFile> {
         let path = file_path
             .display()
             .to_string();
@@ -145,7 +145,7 @@ impl StaticPath {
         &self,
         file_path: &std::path::Path,
         range: Option<&str>,
-    ) -> Result<Response, VetisError> {
+    ) -> VetisResult<Response> {
         let file = self
             .cache_file(file_path)
             .await?;
@@ -206,7 +206,7 @@ impl StaticPath {
             .body(HttpBody::from_bytes(file.data().unwrap())))
     }
 
-    async fn serve_metadata(&self, file_path: PathBuf) -> Result<Response, VetisError> {
+    async fn serve_metadata(&self, file_path: PathBuf) -> VetisResult<Response> {
         let file = self
             .cache_file(&file_path)
             .await?;

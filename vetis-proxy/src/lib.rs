@@ -1,7 +1,10 @@
 #![doc = include_str!("../README.md")]
 #![deny(missing_docs)]
 use serde::Deserialize;
-use vetis::errors::{ConfigError, VetisError};
+use vetis::{
+    errors::{ConfigError, VetisError},
+    VetisResult,
+};
 
 #[cfg(feature = "runtime-tokio")]
 /// Tokio runtime support module
@@ -42,8 +45,8 @@ impl ProxyPathConfigBuilder {
     ///
     /// # Returns
     ///
-    /// * `Result<ProxyPathConfig, VetisError>` - The `ProxyPathConfig` with the configured settings.
-    pub fn build(self) -> Result<ProxyPathConfig, VetisError> {
+    /// * `VetisResult<ProxyPathConfig>` - The `ProxyPathConfig` with the configured settings.
+    pub fn build(self) -> VetisResult<ProxyPathConfig> {
         if self.uri.is_empty() {
             return Err(VetisError::Config(ConfigError::Path("URI cannot be empty".to_string())));
         }
