@@ -1,5 +1,7 @@
 use crate::StaticPathConfig;
 
+mod path;
+
 #[test]
 fn test_static_files_config() -> Result<(), Box<dyn std::error::Error>> {
     let static_files_config = StaticPathConfig::builder()
