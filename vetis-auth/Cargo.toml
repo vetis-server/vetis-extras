@@ -1,0 +1,20 @@
+[package]
+name = "vetis-auth"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+repository.workspace = true
+homepage.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[features]
+basic-auth = ["argon2/password-hash", "argon2/alloc", "bcrypt/std", "base64"]
+
+[dependencies]
+argon2 = { version = "0.5.3", optional = true, default-features = false }
+base64 = { version = "0.22.1", optional = true, default-features = false }
+bcrypt = { version = "0.19.1", optional = true, default-features = false }
+log = "0.4.33"
+serde = "1.0.228"
+vetis = { version = "0.1.4-beta.9" }

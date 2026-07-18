@@ -3146,6 +3146,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "vetis-auth"
+version = "0.1.0"
+dependencies = [
+ "argon2",
+ "base64",
+ "bcrypt",
+ "log",
+ "serde",
+ "vetis",
+]
+
+[[package]]
 name = "vetis-compio"
 version = "0.1.0-beta.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
