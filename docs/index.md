@@ -1,6 +1,10 @@
-# Vetis Contrib
-
-A collection of extension modules for the [Vetis](https://github.com/vetis-server/vetis) Very Tiny Server, providing support for various protocols, application interfaces, and static file serving.
+---
+layout: default
+title: VeTiS Contrib - Very Tiny Server
+nav_order: 1
+description: "A blazingly fast, minimalist HTTP server built for modern Rust applications"
+permalink: /
+---
 
 ## Overview
 
