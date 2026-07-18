@@ -4,6 +4,8 @@ use hyper_body_utils::HttpBody;
 use log::error;
 #[cfg(unix)]
 use std::os::unix::fs::MetadataExt;
+#[cfg(windows)]
+use std::os::windows::fs::MetadataExt;
 use std::{future::Future, path::PathBuf, pin::Pin, sync::Arc};
 use tokio::fs::File;
 use vetis::{
@@ -111,6 +113,8 @@ impl StaticPath {
                     etag: None,
                 };
 
+                log::info!("Metadata: {:?}", metadata);
+
                 let max_file_size = if let Some(cache) = self.config.cache() {
                     cache.max_file_size() as u64
                 } else {
@@ -153,6 +157,16 @@ impl StaticPath {
         let filesize = file
             .metadata()
             .size();
+
+        let mimetype = if let Some(mime) = file
+            .metadata()
+            .mime()
+        {
+            HeaderValue::from_bytes(mime.as_bytes())
+        } else {
+            HeaderValue::from_bytes(b"text/plain")
+        }
+        .map_err(|_| VetisError::VirtualHost(VirtualHostError::File(FileError::InvalidMetadata)))?;
 
         if let Some(range) = range {
             let range_info = match range
@@ -203,6 +217,7 @@ impl StaticPath {
                     .unwrap(),
             )
             .header(http::header::CONTENT_LENGTH, HeaderValue::from(filesize))
+            .header(http::header::CONTENT_TYPE, mimetype)
             .body(HttpBody::from_bytes(file.data().unwrap())))
     }
 
@@ -251,7 +266,7 @@ impl StaticPath {
         let response = Response::builder()
             .status(http::StatusCode::OK)
             .headers(headers)
-            .text("");
+            .empty();
 
         Ok(response)
     }

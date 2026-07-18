@@ -420,7 +420,7 @@ impl StaticFileMetadataBuilder {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 /// Metadata for a static file.
 pub struct StaticFileMetadata {
     mime: Option<String>,

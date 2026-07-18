@@ -2,7 +2,7 @@
 # Use the latest resolver available
 resolver = "3"
 # Include both parts of the library in the workspace
-members = [
+members = ["front",
     #"vetis-asgi",
     #"vetis-fcgi",
     "vetis-proxy",
